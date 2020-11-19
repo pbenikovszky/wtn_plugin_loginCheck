@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.1" method="upgrade" group="user">
+    <name>TSS Login Check</name>
+    <author>TSS</author>
+    <version>1.0.0</version>
+    <description>Plugin to redirect user after login</description>
+    <files>
+        <filename>loginCheck.xml</filename>
+        <filename plugin="loginCheck">loginCheck.php</filename>
+        <filename>index.html</filename>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="engageBoxID"
+                    type="sql"
+                    label="Engage Box ID"
+                    query="SELECT id, name as engageBoxID FROM #__rstbox WHERE published = 1"
+                    key_field="id"
+                    header="A megjelenítendő engage box ID-ja" />                
+                <field
+                    name="shopperGroupID"
+                    type="sql"
+                    label="Vásárlói csoport"
+                    query="SELECT virtuemart_shoppergroup_id, shopper_group_name as shopperGroupID FROM #__virtuemart_shoppergroups"
+                    key_field="virtuemart_shoppergroup_id"
+                    header="Kérem válasszon egy vásárlói csoportot" />                
+                <field
+                    name="statusCode"
+                    type="sql"
+                    label="Rendelési állapot"
+                    query="SELECT order_status_code, order_status_name as statusCode FROM #__virtuemart_orderstates WHERE published = 1"
+                    key_field="order_status_code"
+                    header="Kérem válasszon egy rendelési állapotot" />
+                <field name="limitLow" type="number" label="Fizetési határidő (2 millió Ft. alatt)" min="0" max="40" step="1" default="10" />
+                <field name="limitHigh" type="number" label="Fizetési határidő (2 millió Ft. felett)" min="0" max="40" step="1" default="22" />
+                
+            </fieldset>
+        </fields>
+    </config>    
+</extension>
